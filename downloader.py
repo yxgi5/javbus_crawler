@@ -147,6 +147,26 @@ proxy_addr = "127.0.0.1:8118"
 #     html = soup.prettify()
 #     return html
 
+headers = {
+    'authority': 'www.javbus.com',
+    'accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+    'accept-language': 'en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7',
+    'cookie': '4fJN_2132_seccodecSeRRfg5=14339.4cce2e4f1ae59e531e; 4fJN_2132_seccodecSTVfEvf=9372.f1ae0a808eec67ca6a; 4fJN_2132_seccodecSXYwYAC=20246.0620c823cb43b800c7; 4fJN_2132_seccodecSM7ir7C=32974.501fed7ed7e50412ed; 4fJN_2132_seccodecSQTZPiM=26549.061809068ea08ce4ce; PHPSESSID=9ku0thftv26h49i683n1ml0ag1; existmag=mag; dv=1',
+    'referer': 'https://www.javbus.com',
+    'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="104", "Opera";v="90"',
+    'sec-ch-ua-mobile': '?0',
+    'sec-ch-ua-platform': '"Linux"',
+    'sec-fetch-dest': 'image',
+    'sec-fetch-mode': 'no-cors',
+    'sec-fetch-site': 'same-origin',
+    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 OPR/90.0.4480.84',
+};
+
+proxies = {
+  "http": "http://127.0.0.1:8118",
+  "https": "http://127.0.0.1:8118",
+}
+
 def get_html(url, Referer_url=None, max_retries=5):
     '''get_html(url),download and return html'''
     # if Referer_url:
@@ -200,3 +220,27 @@ def get_html(url, Referer_url=None, max_retries=5):
     html = soup.prettify()
     return html
 
+def get_image(img_url, Referer_url=None, max_retries=5):
+    if Referer_url:
+        headers['referer'] = Referer_url
+
+    for i in range(max_retries):
+        try:
+            response = requests.get(img_url, headers=headers, proxies=proxies)
+            break
+        except Exception as err:
+            print(err)
+            if i == (max_retries -1):
+               raise     # give up after max_retries attempts
+
+    if response.history:
+        # print("Request was redirected")
+        # for resp in response.history:
+            # print(resp.status_code, resp.url)
+        # print("Final destination:")
+        # print(response.status_code, response.url)
+        # return b''
+        return None
+    else:
+        # print("Request was not redirected")
+        return response.content
