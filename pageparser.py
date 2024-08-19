@@ -134,6 +134,11 @@ def parser_content(html):
         manufacturer = manufacturer_doc.parent.contents[3].text.strip() if manufacturer_doc else ''
         categories['製作商'] = manufacturer
         #manufacturer = soup.find('span', text="製作商:").parent.contents[2].text if soup.find('span', text="製作商:") else ''
+        if hasattr(manufacturer_doc,'parent'):
+            is_uncensored = 1 if 'uncensored' in manufacturer_doc.parent.contents[3]['href'] else 0
+        else:
+            is_uncensored = 0
+        categories['無碼'] = is_uncensored
 
         publisher_doc = soup.find('span', text=re.compile("發行商:"))
         publisher = publisher_doc.parent.contents[3].text.strip()  if publisher_doc else ''
@@ -193,7 +198,10 @@ def parser_content(html):
         manufacturer = manufacturer_doc.parent.contents[3].text.strip() if manufacturer_doc else ''
         categories['製作商'] = manufacturer
         #manufacturer = soup.find('span', text="製作商:").parent.contents[2].text if soup.find('span', text="製作商:") else ''
-        is_uncensored = 1 if 'uncensored' in manufacturer_doc.parent.contents[3]['href'] else 0
+        if hasattr(manufacturer_doc,'parent'):
+            is_uncensored = 1 if 'uncensored' in manufacturer_doc.parent.contents[3]['href'] else 0
+        else:
+            is_uncensored = 0
         categories['無碼'] = is_uncensored
 
         publisher_doc = soup.find('span', text=re.compile("レーベル:"))

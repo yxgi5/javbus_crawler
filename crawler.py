@@ -127,6 +127,8 @@ if __name__ == '__main__':
     # singleurl_handler('https://www.javbus.com/ja/page/6') # test err url
     # singleurl_handler('https://www.javbus.com/ja/HEYZO-3379') # test uncensored
     # singleurl_handler('https://www.javbus.com/ja/EZD-269') # test bad page
+    # singleurl_handler('https://www.javbus.com/ja/SDDL-478')
+    # singleurl_handler('https://www.javbus.com/ja/BIG-054')
     # homeurl_handler(sys.argv[1])
     # singleurl_handler(sys.argv[1])
 	# singleurl_handler('https://www.javbus.com/ja/' + sys.argv[1])
