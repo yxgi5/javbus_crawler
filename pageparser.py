@@ -126,7 +126,13 @@ def parser_content(html):
         #duration = soup.find('span', text="長度:").parent.contents[1].strip() if soup.find('span', text="長度:") else ''
 
         director_doc = soup.find('span', text=re.compile("導演:"))
-        director = director_doc.parent.contents[3].text.strip() if director_doc else ''
+        if hasattr(director_doc,'parent'):
+            if len(director_doc.parent.contents) > 3:
+                director = director_doc.parent.contents[3].text.strip() if director_doc else ''
+            else:
+                director = ''
+        else:
+            director = ''
         categories['導演'] = director
         #director = soup.find('span', text="導演:").parent.contents[2].text if soup.find('span', text="導演:") else ''
 
@@ -190,7 +196,13 @@ def parser_content(html):
         #duration = soup.find('span', text="長度:").parent.contents[1].strip() if soup.find('span', text="長度:") else ''
 
         director_doc = soup.find('span', text=re.compile("監督:"))
-        director = director_doc.parent.contents[3].text.strip() if director_doc else ''
+        if hasattr(director_doc,'parent'):
+            if len(director_doc.parent.contents) > 3:
+                director = director_doc.parent.contents[3].text.strip() if director_doc else ''
+            else:
+                director = ''
+        else:
+            director = ''
         categories['導演'] = director
         #director = soup.find('span', text="導演:").parent.contents[2].text if soup.find('span', text="導演:") else ''
 
