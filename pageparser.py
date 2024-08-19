@@ -247,6 +247,7 @@ def parser_content(html):
     sample_images_text = ''
     for tex in sample_images:
         if tex[0] == '/':
+            parsed = urlparse(url)
             tex = parsed.scheme+'://'+parsed.netloc+tex
         # sample_images_text += '%s   ' % tex 
         sample_images_text += '%s\n' % tex 
